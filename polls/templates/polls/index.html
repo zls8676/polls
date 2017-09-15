@@ -1,0 +1,28 @@
+{% if latest_question_list %}
+    <ul>
+    {% for question in list %}
+        <!--<li><a href="polls/{{ question.id }}/">{{ question.question_text }}</a></li>-->
+        <li><a href="{% url 'polls:detail' question.id%}">{{ question.question_text }}</a></li>
+    {% endfor %}
+    </ul>
+
+    <!--如果有上一页has_previous-->
+    {% if list.has_previous %}
+        <a href="/polls/pag{{list.previous_page_number}}/">上一页</a>
+    {%endif%}
+    {%for pindex in plist%}
+        {%if pIndex == pindex%}
+            {{pindex}}&nbsp;&nbsp;
+        {%else%}
+            <a href="/polls/pag{{pindex}}/">{{pindex}}</a>&nbsp;&nbsp;
+        {%endif%}
+    {%endfor%}
+    <!--如果有下一页has_next-->
+    {% if list.has_next %}
+        <a href="/polls/pag{{list.next_page_number}}/">下一页</a>
+    {%endif%}
+
+
+{% else %}
+    <p>No polls are available.</p>
+{% endif%}
